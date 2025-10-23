@@ -229,10 +229,7 @@ export default function Home() {
         </motion.form>
       </motion.section>
 
-      {/* Footer */}
-      <motion.footer className="footer" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 1 }}>
-        <p>© {new Date().getFullYear()} Christvin Dylen | Designed with ❤️ using Next.js & Framer Motion</p>
-      </motion.footer>
+      
     </main>
   );
 }
