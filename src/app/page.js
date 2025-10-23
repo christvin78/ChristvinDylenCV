@@ -18,9 +18,9 @@ export default function Home() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // ======== Meteor Animation ========
+  // ===== Meteor Animation =====
   useEffect(() => {
-    if (!showMeteors) return; // Stop if disabled
+    if (!showMeteors) return;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     let meteors = [];
@@ -61,13 +61,10 @@ export default function Home() {
       update() {
         this.x -= this.speed * 0.5;
         this.y += this.speed;
-        if (this.y > canvas.height || this.x < 0) {
-          this.reset();
-        }
+        if (this.y > canvas.height || this.x < 0) this.reset();
       }
     }
 
-    // Generate meteors
     for (let i = 0; i < 40; i++) meteors.push(new Meteor());
 
     const animate = () => {
@@ -87,7 +84,7 @@ export default function Home() {
     };
   }, [showMeteors]);
 
-  // ======== Framer Motion Animations ========
+  // ===== Animations =====
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
@@ -134,19 +131,11 @@ export default function Home() {
           <li onClick={() => scrollTo("projects")}>Projects</li>
           <li onClick={() => scrollTo("contact")}>Contact</li>
         </ul>
-        <div style={{ display: "flex", gap: "0.8rem", alignItems: "center" }}>
-          <button
-            onClick={() => setShowMeteors(!showMeteors)}
-            className="toggle-btn"
-            title="Toggle meteors"
-          >
+        <div className="toggle-group">
+          <button onClick={() => setShowMeteors(!showMeteors)} className="toggle-btn" title="Toggle meteors">
             {showMeteors ? "❌" : "☄️"}
           </button>
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="toggle-btn"
-            title="Toggle theme"
-          >
+          <button onClick={() => setDarkMode(!darkMode)} className="toggle-btn" title="Toggle theme">
             {darkMode ? "☀️" : "🌙"}
           </button>
         </div>
@@ -154,135 +143,73 @@ export default function Home() {
 
       {/* Hero Section */}
       <section id="hero" className="hero">
-        <motion.div
-          className="hero-overlay"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.5 }}
-          transition={{ duration: 1 }}
-        />
-        <motion.div
-          className="hero-content"
-          initial="hidden"
-          animate="visible"
-          variants={stagger}
-        >
+        <motion.div className="hero-overlay" initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} transition={{ duration: 1 }} />
+        <motion.div className="hero-content" initial="hidden" animate="visible" variants={stagger}>
           <motion.h2 variants={fadeInUp}>
-            Hello, I'm <span>Christvin Dylen</span>
+            Hello, I&apos;m <span>Christvin Dylen</span>
           </motion.h2>
           <motion.p variants={fadeInUp} className="typing">
             Creative Web Developer & Designer
           </motion.p>
-          <motion.button
-            variants={fadeInUp}
-            className="btn-primary"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => scrollTo("projects")}
-          >
+          <motion.button variants={fadeInUp} className="btn-primary" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => scrollTo("projects")}>
             View My Work ↓
           </motion.button>
         </motion.div>
       </section>
 
       {/* About Section */}
-      <motion.section
-        id="about"
-        className="about"
-        variants={fadeInUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
+      <motion.section id="about" className="about" variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
         <h2>About Me</h2>
         <p>
-          I'm a passionate developer focused on crafting visually stunning,
-          user-friendly, and responsive websites. I love combining design
-          aesthetics with clean, efficient code to bring digital ideas to life.
+          I&apos;m a passionate developer focused on crafting visually stunning, user-friendly, and responsive websites. I love combining design aesthetics with clean, efficient code to bring digital ideas to life.
         </p>
       </motion.section>
 
       {/* CV Section */}
-      <motion.section
-        id="cv"
-        className="cv-section"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeInUp}
-      >
+      <motion.section id="cv" className="cv-section" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
         <h2>My CV</h2>
-        <p>
-          You can view or download my latest Curriculum Vitae below to learn more
-          about my experience, education, and technical skills.
-        </p>
+        <p>You can view or download my latest Curriculum Vitae below to learn more about my experience, education, and technical skills.</p>
 
-        <motion.div
-          className="cv-preview"
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          <iframe
-            src="/Christvin_Dylen_CV.pdf"
-            width="100%"
-            height="500px"
-            title="Christvin Dylen CV"
-            className="cv-frame"
-          />
+        <motion.div className="cv-preview" initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}>
+          <img src="/CV.jpg" alt="Christvin Dylen CV" className="cv-image" />
         </motion.div>
 
-        <motion.a
-          href="/Christvin_Dylen_CV.pdf"
-          download="Christvin_Dylen_CV.pdf"
-          className="btn-primary"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
+        <motion.a href="/CV.jpg" download="Christvin_Dylen_CV.jpg" className="btn-primary" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           📄 Download CV
         </motion.a>
       </motion.section>
 
-      {/* Projects Section */}
-      <motion.section
-        id="projects"
-        className="projects"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={stagger}
-      >
+      {/* Projects Section (pakai foto) */}
+      <motion.section id="projects" className="projects" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
         <h2>My Projects</h2>
         <div className="project-grid">
           {[
-            { icon: "🎮", title: "Game Website", desc: "Interactive web game using React & GSAP." },
-            { icon: "📚", title: "Book Library", desc: "Next.js app with SSR & API integration." },
-            { icon: "🧭", title: "Portfolio 2.0", desc: "Smooth animations & responsive UI." },
-            { icon: "💡", title: "Creative Lab", desc: "A space for experimental digital ideas." },
+            { img: "/GAME.png", title: "Game Website", desc: "Interactive web game using React & GSAP." },
+            { img: "/MOVIE.png", title: "MOVIE", desc: "Next.js app with SSR & API integration." },
+            { img: "/myCV.png", title: "CV", desc: "Smooth animations & responsive UI." },
+           
           ].map((proj, i) => (
             <motion.div
               key={i}
               className="project-card"
               variants={fadeInUp}
-              whileHover={{ scale: 1.05, y: -5 }}
+              whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 200 }}
             >
-              <div className="project-icon">{proj.icon}</div>
-              <h3>{proj.title}</h3>
-              <p>{proj.desc}</p>
+              <div className="project-image-container">
+                <img src={proj.img} alt={proj.title} className="project-image" />
+                <div className="project-overlay">
+                  <h3>{proj.title}</h3>
+                  <p>{proj.desc}</p>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
       </motion.section>
 
       {/* Contact Section */}
-      <motion.section
-        id="contact"
-        className="contact"
-        variants={fadeInUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
+      <motion.section id="contact" className="contact" variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
         <h2>Contact Me</h2>
         <motion.form
           onSubmit={(e) => {
@@ -296,28 +223,15 @@ export default function Home() {
           <input type="text" placeholder="Your Name" required />
           <input type="email" placeholder="Your Email" required />
           <textarea placeholder="Your Message" required></textarea>
-          <motion.button
-            type="submit"
-            className="btn-primary"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
+          <motion.button type="submit" className="btn-primary" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             Send Message
           </motion.button>
         </motion.form>
       </motion.section>
 
       {/* Footer */}
-      <motion.footer
-        className="footer"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <p>
-          © {new Date().getFullYear()} Christvin Dylen | Designed with ❤️ using
-          Next.js & Framer Motion
-        </p>
+      <motion.footer className="footer" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 1 }}>
+        <p>© {new Date().getFullYear()} Christvin Dylen | Designed with ❤️ using Next.js & Framer Motion</p>
       </motion.footer>
     </main>
   );
