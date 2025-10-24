@@ -96,9 +96,9 @@ export default function Home() {
   useEffect(() => {
     const typed = new Typed(typedRef.current, {
       strings: [
-        "Creative Web Developer 💻",
-        "UI/UX Designer 🎨",
-        "Interactive Website Builder 🚀",
+        "Creative Web Developer ",
+        "UI/UX Designer ",
+        "Interactive Website Builder ",
       ],
       typeSpeed: 60,
       backSpeed: 40,
