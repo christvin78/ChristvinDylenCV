@@ -169,6 +169,7 @@ export default function Home() {
         <ul className="nav-links">
           <li onClick={() => scrollTo("hero")}>Home</li>
           <li onClick={() => scrollTo("about")}>About</li>
+          <li onClick={() => scrollTo("skills")}>Skills</li>
           <li onClick={() => scrollTo("cv")}>CV</li>
           <li onClick={() => scrollTo("projects")}>Projects</li>
           <li onClick={() => scrollTo("contact")}>Contact</li>
@@ -214,6 +215,90 @@ export default function Home() {
           aesthetics with clean, efficient code to bring digital ideas to life.
         </p>
       </motion.section>
+
+    {/* Skills Section (Modernized - Compact Version) */}
+<motion.section id="skills" className="skills-section" variants={fadeInUp}>
+  <h2>My Skills</h2>
+  <p>
+    A blend of creative coding, animation, and modern web architecture —
+    bringing interactive experiences to life.
+  </p>
+
+  <div
+    className="skills-modern-grid"
+    style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+      gap: "1rem",
+      marginTop: "1.5rem",
+    }}
+  >
+    {[
+      { name: "React.js", color: "#61DBFB", icon: "⚛️", desc: "Dynamic UIs & component-based architecture." },
+      { name: "Next.js", color: "#000000", icon: "💠", desc: "Server-side rendering & optimized performance." },
+      { name: "GSAP", color: "#88CE02", icon: "⚡", desc: "Fluid motion design & scroll-triggered effects." },
+      { name: "JavaScript", color: "#F7DF1E", icon: "🟨", desc: "Logic, interactivity & API integration." },
+      { name: "UI/UX", color: "#FF69B4", icon: "🎨", desc: "Design thinking & smooth experiences." },
+    ].map((skill, i) => (
+      <motion.div
+        key={i}
+        className="skill-modern-card"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        whileHover={{
+          scale: 1.05,
+          rotate: 1,
+          boxShadow: `0 0 15px ${skill.color}50`,
+        }}
+        transition={{ duration: 0.4, delay: i * 0.1 }}
+        style={{
+          background: `linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1))`,
+          border: `1px solid rgba(255,255,255,0.15)`,
+          borderRadius: "14px",
+          padding: "1rem", 
+          textAlign: "center",
+          boxShadow: "0 3px 12px rgba(0,0,0,0.25)",
+          backdropFilter: "blur(5px)",
+        }}
+      >
+        <motion.div
+          animate={{ y: [0, -4, 0] }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: i * 0.3,
+          }}
+        >
+          <span
+            style={{
+              fontSize: "1.6rem", // 🔹 lebih kecil dari 2rem
+              textShadow: `0 0 10px ${skill.color}`,
+              display: "block",
+              marginBottom: "0.4rem",
+            }}
+          >
+            {skill.icon}
+          </span>
+        </motion.div>
+        <h3
+          style={{
+            color: skill.color,
+            fontSize: "1rem", // 🔹 lebih kecil
+            fontWeight: "600",
+            marginBottom: "0.2rem",
+          }}
+        >
+          {skill.name}
+        </h3>
+        <p style={{ color: "#ccc", fontSize: "0.8rem", opacity: 0.85 }}>
+          {skill.desc}
+        </p>
+      </motion.div>
+    ))}
+  </div>
+</motion.section>
+
 
       {/* CV Section */}
       <motion.section id="cv" className="cv-section" variants={fadeInUp}>
@@ -291,7 +376,6 @@ export default function Home() {
           </motion.button>
         </motion.form>
       </motion.section>
-
     </main>
   );
 }
